@@ -1,6 +1,6 @@
 # # --- Figures --- #
 # #FIGS = ["earnings_by_cohort", "education_by_cohort"]
-# FIGS = glob_wildcards("src/figures/{iFile}.R").iFile
+FIGS = glob_wildcards("src/figures/{iFile}.R").iFile
 # FIXED_EFFECTS = ["fixed_effects", "no_fixed_effects"]
 # INSTRUMENT_SPEC = glob_wildcards("src/model-specs/instrument_{iInst}.json").iInst
 
@@ -39,22 +39,18 @@
 #         "Rscript {input.script} {input.rmarkdown} {output.pdf}"
 
 # # --- TABLE --- #
-# rule make_table:
-#     input:
-#         script = "src/tables/regression_table.R",
-#         ols_res = expand("out/analysis/ols_{iFixedEffect}.Rds",
-#                     iFixedEffect = FIXED_EFFECTS),
-#         iv_res = expand("out/analysis/iv_{iInstrument}.{iFixedEffect}.Rds",
-#                     iInstrument = INSTRUMENT_SPEC,
-#                     iFixedEffect = FIXED_EFFECTS)
-#     output:
-#         table = "out/tables/regression_table.tex"
-#     params:
-#         directory = "out/analysis"
-#     shell:
-#         "Rscript {input.script} \
-#             --filepath {params.directory} \
-#             --out {output.table}"
+rule make_table:
+    input:
+        script = "src/tables/regression_table.R",
+        ols_res = "out/analysis/ols.Rds",
+    output:
+        table = "out/tables/regression_table.tex"
+    params:
+        directory = "out/analysis"
+    shell:
+        "Rscript {input.script} \
+            --filepath {params.directory} \
+            --out {output.table}"
 
 # # --- MODELS --- #
 # rule run_models:
@@ -81,36 +77,34 @@
 #             --instruments {input.inst} \
 #             --out {output.model}"
 
-# rule ols:
-#     input:
-#         script = "src/analysis/estimate_ols.R",
-#         data =  "out/data/angrist_krueger.csv",
-#         equation = "src/model-specs/estimating_equation.json",
-#         fixedEffects = "src/model-specs/{iFixedEffect}.json",
-#     output:
-#         model = "out/analysis/ols_{iFixedEffect}.Rds",
-#     shell:
-#         "Rscript {input.script} \
-#             --data {input.data} \
-#             --model {input.equation} \
-#             --fixedEffects {input.fixedEffects} \
-#             --out {output.model}"
+rule ols:
+    input:
+        script = "src/analysis/estimate_ols.R",
+        data =  "out/data/cartel_data.csv",
+        equation = "src/model-specs/estimating_equation.json",
+    output:
+        model = "out/analysis/ols.Rds",
+    shell:
+        "Rscript {input.script} \
+            --data {input.data} \
+            --model {input.equation} \
+            --out {output.model}"
 
-# rule make_figs:
-#     input:
-#         figs = expand("out/figures/{iFigure}.pdf",
-#                         iFigure = FIGS)
+rule make_figs:
+    input:
+        figs = expand("out/figures/{iFigure}.pdf",
+                        iFigure = FIGS)
 
-# rule figs:
-#     input:
-#         script = "src/figures/{iFigure}.R",
-#         data = "out/data/cohort_summary.csv",
-#     output:
-#         pdf = "out/figures/{iFigure}.pdf",
-#     shell:
-#         "Rscript {input.script} \
-#             --data {input.data} \
-#             --out {output.pdf}"
+rule figs:
+    input:
+        script = "src/figures/{iFigure}.R",
+        data = "out/data/cartel_data.csv",
+    output:
+        pdf = "out/figures/{iFigure}.pdf",
+    shell:
+        "Rscript {input.script} \
+            --data {input.data} \
+            --out {output.pdf}"
 
 # --- Data Management --- #
 # rule cohort_summary:

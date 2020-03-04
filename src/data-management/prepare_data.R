@@ -80,4 +80,5 @@ df = df %>%
 
 # Save data
 print("saving output")
-write_delim(df, opt$out, ";")
+#write_delim(df, opt$out, ";")
+write_csv(df, opt$out)
