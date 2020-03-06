@@ -71,7 +71,6 @@ In our simple model, we choose the number of firms to determine crucial cut-off
 levels for the discount factor, determining cartel formation and cheating by cartel members, 
 leading to dissolution \citet{Stigler:1964}.
 
-% BEGIN REFERENCES
 \newpage
 \bibliography{Proposal}
 \bibliographystyle{apalike}
