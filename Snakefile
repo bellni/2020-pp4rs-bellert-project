@@ -5,12 +5,12 @@ FIGS = glob_wildcards("src/figures/{iFile}.R").iFile
 # INSTRUMENT_SPEC = glob_wildcards("src/model-specs/instrument_{iInst}.json").iInst
 
 # # --- Everything --- #
-# rule all:
-#     input:
-#         paper = "out/paper/paper.pdf",
-#         table = "out/table/regression_table.tex",
-#         figs = expand("out/figures/{iFigure}.pdf",
-#                         iFigure = FIGS)
+rule all:
+    input:
+        paper = "out/paper/paper.pdf",
+        table = "out/tables/regression_table.tex",
+        figs = expand("out/figures/{iFigure}.pdf",
+                        iFigure = FIGS)
 
 # # --- SLIDES --- #
 # # rule slides:
@@ -26,19 +26,24 @@ FIGS = glob_wildcards("src/figures/{iFile}.R").iFile
 # #         "Rscript {input.script} {input.rmarkdown} {output.pdf}"
 
 # # --- Paper --- #
-# rule paper:
-#     input:
-#         rmarkdown   = "src/paper/paper.Rmd",
-#         script      = "src/lib/knit_rmd.R",
-#         figures     = expand("out/figures/{iFigure}.pdf",
-#                         iFigure = FIGS),
-#         table       = "out/tables/regression_table.tex",
-#     output:
-#         pdf = "out/paper/paper.pdf",
-#     shell:
-#         "Rscript {input.script} {input.rmarkdown} {output.pdf}"
+rule paper:
+    input:
+        rmarkdown   = "src/paper/paper.Rmd",
+        script      = "src/lib/knit_rmd.R",
+        figures     = expand("out/figures/{iFigure}.pdf",
+                        iFigure = FIGS),
+        table       = "out/tables/regression_table.tex",
+    output:
+        pdf = "out/paper/paper.pdf",
+    shell:
+        "Rscript {input.script} {input.rmarkdown} {output.pdf}"
 
 # # --- TABLE --- #
+rule make_figs:
+    input:
+        figs = expand("out/figures/{iFigure}.pdf",
+                        iFigure = FIGS)
+
 rule make_table:
     input:
         script = "src/tables/regression_table.R",
@@ -90,10 +95,6 @@ rule ols:
             --model {input.equation} \
             --out {output.model}"
 
-rule make_figs:
-    input:
-        figs = expand("out/figures/{iFigure}.pdf",
-                        iFigure = FIGS)
 
 rule figs:
     input:
