@@ -24,19 +24,19 @@ the classic work on collusion dating back to \citet{Stigler:1964}.\footnote{Our 
 does not discriminate between explicit and tacit collusion. In particular, the model does not 
 require communication between the parties. See \citet{Ivaldi:Jullien:Rey:Seabright:Tirole:2003} 
 we use and add Woodpulp Case and state that US difference.} 
-We generate a dgp understanding formation, detection and dissolution of cartels. We start by 
-simulating a simple workhorse model of collusion to derive an entire population of cartels 
-and two subsamples. In the first sample of uncovered cartels, we do not introduce structure 
-over time i.e. {\it unstructured}. In the second sample, repeat offenders have a higher 
-likelihood of being detected by a CA and applying for Leniency  i.e. {\it structured}. 
 
 
 ## Summary Plots
 
-```{r, echo=FALSE, fig.align="center", out.width='0.65\\linewidth', fig.cap="My caption"}
+We generate a dgp understanding formation, detection and dissolution of cartels. We start by 
+simulating a simple workhorse model of collusion to derive an entire population of cartels 
+and two subsamples. In the first sample of uncovered cartels, we do not introduce structure 
+over time i.e. \textit{unstructured}. In the second sample, repeat offenders have a higher 
+likelihood of being detected by a CA and applying for Leniency  i.e. \textit{structured}. 
+
+```{r,fig-sub, fig.align="center", echo = FALSE, fig.show = "hold", out.width = '.60\\linewidth', fig.asp = 1, fig.ncol = 1}
 knitr::include_graphics("../../out/figures/caught_cartels.pdf")
 ```
-
 In general, we define collusion in the classic framework; i.e. a market conduct that 
 enables firms to obtain supra-normal profits, where normal profits correspond to the 
 competitive equilibrium. Consequently, firms may set and maintain higher prices by 
