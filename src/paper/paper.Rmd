@@ -1,0 +1,77 @@
+---
+title: "Dark Rates in European Cartels"
+author: '@bellni'
+date: "March 04, 2020"
+header-includes:
+   - \usepackage{bbm}
+   - \usepackage{subfig}
+   - \usepackage{dcolumn}
+   - \usepackage{amsthm}
+   - \usepackage{amsmath}
+   - \usepackage[authoryear]{natbib}
+
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+With the aim to identify shortcomings of Hazard Rate models in estimating population 
+sizes of cartels and supporting our new statistical method, we generate a dgp based on 
+the classic work on collusion dating back to \citet{Stigler:1964}.\footnote{Our general model 
+does not discriminate between explicit and tacit collusion. In particular, the model does not 
+require communication between the parties. See \citet{Ivaldi:Jullien:Rey:Seabright:Tirole:2003} 
+we use and add Woodpulp Case and state that US difference.} 
+We generate a dgp understanding formation, detection and dissolution of cartels. We start by 
+simulating a simple workhorse model of collusion to derive an entire population of cartels 
+and two subsamples. In the first sample of uncovered cartels, we do not introduce structure 
+over time i.e. {\it unstructured}. In the second sample, repeat offenders have a higher 
+likelihood of being detected by a CA and applying for Leniency  i.e. {\it structured}. 
+
+
+## Summary Plots
+
+```{r, echo=FALSE, fig.align="center", out.width='0.65\\linewidth', fig.cap="My caption"}
+knitr::include_graphics("../../out/figures/caught_cartels.pdf")
+```
+
+In general, we define collusion in the classic framework; i.e. a market conduct that 
+enables firms to obtain supra-normal profits, where normal profits correspond to the 
+competitive equilibrium. Consequently, firms may set and maintain higher prices by 
+(tacitly) agreeing that any deviation from the collusive path would trigger some retaliation. 
+Retaliation must be sufficiently likely and costly to outweigh the short-term benefits from 
+cheating on the collusive path. These short-term benefits, as well as the magnitude and 
+likelihood of retaliation, depend in turn on the characteristics of the industry. 
+
+
+## Regression Table
+
+To be effective, retaliation must imply a significant profit loss for the deviating firm, 
+compared with the profit that it would have obtained by sticking to the collusive path. 
+A simple form of retaliation consists in the breakdown of collusion and the restoration 
+of competition and competitive profits. Firms then anticipate that collusive prices will 
+be maintained as long as none of them deviates, but if one attempts to reap short-term 
+profits by undercutting prices, they will be no more collusion in the future. This form of 
+collusion has a simple interpretation: firms trust each other to maintain collusive prices; 
+but if one of them deviates, trust vanishes and all firms start acting in their short-term 
+interest. 
+
+\input{../../out/tables/regression_table.tex}
+
+Many characteristics can affect the sustainability of collusion 
+(\citet{Suslow:Levenstein:2011} and \citet{Stigler:1964}). 
+First, there are some basic market specific variables; number of competitors, entry/exit barriers, 
+firm interaction, and market transparency. Second, there are characteristics 
+about the demand side; i.e. market growth, demand fluctuations or business cycles. 
+Third, there are characteristics about the supply side; i.e. technology change, 
+innovation, firm symmetry (e.g. homogeneous goods, production costs and production). 
+In our simple model, we choose the number of firms to determine crucial cut-off 
+levels for the discount factor, determining cartel formation and cheating by cartel members, 
+leading to dissolution \citet{Stigler:1964}.
+
+% BEGIN REFERENCES
+\newpage
+\bibliography{Proposal}
+\bibliographystyle{apalike}
