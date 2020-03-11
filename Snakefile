@@ -39,11 +39,6 @@ rule paper:
         "Rscript {input.script} {input.rmarkdown} {output.pdf}"
 
 # # --- TABLE --- #
-rule make_figs:
-    input:
-        figs = expand("out/figures/{iFigure}.pdf",
-                        iFigure = FIGS)
-
 rule make_table:
     input:
         script = "src/tables/regression_table.R",
@@ -95,6 +90,10 @@ rule ols:
             --model {input.equation} \
             --out {output.model}"
 
+rule make_figs:
+    input:
+        figs = expand("out/figures/{iFigure}.pdf",
+                        iFigure = FIGS)
 
 rule figs:
     input:
