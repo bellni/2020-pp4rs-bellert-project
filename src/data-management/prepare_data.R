@@ -6,7 +6,6 @@
 #'
 
 # Libraries
-#rm(list = ls())
 library("optparse")
 library("readr")
 library("dplyr")
@@ -35,7 +34,6 @@ if (is.null(opt$data)){
 }
 
 # Read in data as csv
-#data_input = read_delim("~/documents/courses/pp4rs/playground/2020-pp4rs-bellert-project/input/20190305_duration_struc_all.csv", ";")
 df <- read_delim(opt$data,
                  ";")
 
@@ -80,5 +78,4 @@ df = df %>%
 
 # Save data
 print("saving output")
-#write_delim(df, opt$out, ";")
 write_csv(df, opt$out)

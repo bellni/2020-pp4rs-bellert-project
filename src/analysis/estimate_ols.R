@@ -66,7 +66,3 @@ summary(ols_model)
 
 # Save output
 list.save(ols_model, opt$out)
-
-# ols <- lm(detected_all ~ leniencypolicy, data = df)
-# summary(ols)
-# ols_size <- lm()
