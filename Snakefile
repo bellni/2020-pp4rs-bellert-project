@@ -81,9 +81,16 @@ rule prepare_data:
             --data {input.data} \
             --out {output.csv}"
 
+# --- CLEANING RULES --- #
+## clean              : removes all content from out/ directory
+
 rule clean:
     shell:
         "rm -r out/*"
+
+
+# --- SNAKEMAKE WORKFLOW GRAPHS --- #
+
 
 rule filegraph:
     input:
@@ -100,5 +107,22 @@ rule rulegraph:
         "rulegraph.pdf"
     shell:
         "snakemake --rulegraph | dot -Tpdf > {output}"
+
+# --- INSTALLATION OF REQUIRED SOFTWARE --- #
+
+## find_packages      : looks for R packages used across all scripts
+rule find_packages:
+    output:
+        "REQUIREMENTS.txt"
+    shell:
+        "bash find_r_packages.sh"
+
+## install_packages   : installs missing R packages
+rule install_packages:
+    input:
+        script = "src/lib/install_r_packages.R",
+        requirements = "REQUIREMENTS.txt"
+    shell:
+        "Rscript {input.script}"
 
 # most advanced steps are at top
