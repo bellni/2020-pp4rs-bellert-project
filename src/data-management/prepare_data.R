@@ -37,7 +37,6 @@ if (is.null(opt$data)){
 df <- read_delim(opt$data,
                  ";")
 
-
 # Change variable names
 df = rename(df,
             nr_firms_in_cartel = nrFirmsInCartel,
@@ -52,6 +51,15 @@ df = rename(df,
             start_to_death = starttodeath,
             industry_id = industry)
 
+# Generate variables for industries
+industry_name = c("agriculture", "mining", "fooddrinks", "textile", "chemicals", "plastics", "metal", 
+                   "electricity", "construction", "tradehotels", "transport", "banking", "communications", 
+                   "publicservice")
+industry_id = c(1:14)
+industries = tibble(industry_id, industry_name)
+df = left_join(df, industries)
+
+
 # Change date to years
 # add enddate
 # Generate variable for all detected cases
@@ -65,16 +73,10 @@ df = mutate(df,
             enddate = startdate + start_to_death/days_in_year,
             detected_all = detected + leniency + detection_after_death + leniency_after_death
 )
-
-# Generate variables for industries
-industry_names = c("agriculture", "mining", "fooddrinks", "textile", "chemicals", "plastics", "metal", 
-                   "electricity", "construction", "tradehotels", "transport", "banking", "communications", 
-                   "publicservice")
-df$industry_name = industry_names[(df$industry_id)]
   
 # sort variables
 df = df %>%
-  select(industry_id, nr_firms_in_cartel, startdate, dissolvedate, founddate, enddate, start_to_death, everything())
+  select(industry_id, industry_name, nr_firms_in_cartel, startdate, dissolvedate, founddate, enddate, start_to_death, everything())
 
 # Save data
 print("saving output")
