@@ -10,5 +10,4 @@ out/*
 src/data/*
 .snakemake
 *.pdf
-*.sh
 *.tex
