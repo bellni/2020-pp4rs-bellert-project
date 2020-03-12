@@ -38,14 +38,6 @@ if (is.null(opt$data)){
 df <- read_csv(opt$data) 
 
 # Create Figure
-ggplot(data = df) + 
-  geom_point(aes(x = start_to_death,
-                 y = nr_times_caught,
-                 shape = as.logical(detected_all),
-                )
-  ) +
-  scale_shape(solid = FALSE)
-
 plt <- ggplot(data = df) + 
   geom_point(aes(x = start_to_death,
                  y = nr_times_caught,
