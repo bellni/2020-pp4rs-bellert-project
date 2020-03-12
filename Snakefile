@@ -5,9 +5,6 @@ FIGS = glob_wildcards("src/figures/{iFile}.R").iFile
 rule all:
     input:
         paper = "out/paper/paper.pdf",
-        table = "out/tables/regression_table.tex",
-        figs = expand("out/figures/{iFigure}.pdf",
-                        iFigure = FIGS)
 
 
 # # --- Paper --- #
